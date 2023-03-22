@@ -11,7 +11,10 @@ void merge(int pData[], int l, int m, int r) {
 	int n2 = r - m;
 
 	// temp arrays for left and right
-	int L[n1], R[n2];
+	int *L, *R;
+	L = (int*)malloc(n1 * sizeof(int));
+    R = (int*)malloc(n2 * sizeof(int));
+
 	// filling temp arrays
 	for(int i = 0; i < n1; i++) {
 		L[i] = pData[l+i];
@@ -23,7 +26,6 @@ void merge(int pData[], int l, int m, int r) {
 	int x = 0;
 	int y = 0;
 	int z = l;
-
 	while(x < n1 && y < n2) {
 		if(L[x] <= R[y]) {
 			pData[z] = L[x];
@@ -55,8 +57,7 @@ void merge(int pData[], int l, int m, int r) {
 void mergeSort(int pData[], int l, int r)
 {
     if(l < r) {
-    	int m = l + (r - 1) / 2;
-
+		int m = (l+r) / 2;
 		// sorting both halves
 		mergeSort(pData, l, m);
 		mergeSort(pData, m + 1, r);
@@ -64,8 +65,6 @@ void mergeSort(int pData[], int l, int r)
 		// merging arrays
 		merge(pData,l,m,r);
     }
-    // For some reason a printf statement is needed here and it wont output if it is missing
-    printf("--------------------------------------------------------\n");
 }
 
 // implement insertion sort
@@ -103,8 +102,6 @@ void bubbleSort(int* pData, int n)
       }
     }
   }
-  // For some reason a printf statement is needed here and it wont output if it is missing
-	printf("------------------------------------------------\n");
 }
 
 // implement selection sort
@@ -142,7 +139,6 @@ int parseData(char *inputFileName, int **ppData)
 				fscanf(inFile, "%d\n", &((*ppData)[i]));
 			}
 		}
-
 	}
 	fclose(inFile);
 	return dataSz;
@@ -234,5 +230,4 @@ int main(void)
 		free(pDataCopy);
 		free(pDataSrc);
 	}
-
 }
