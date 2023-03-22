@@ -54,7 +54,7 @@ void merge(int pData[], int l, int m, int r) {
 // extraMemoryAllocated counts bytes of extra memory allocated
 void mergeSort(int pData[], int l, int r)
 {
-    if(l < r){
+    if(l < r) {
     	int m = l + (r - 1) / 2;
 
 		// sorting both halves
@@ -64,8 +64,8 @@ void mergeSort(int pData[], int l, int r)
 		// merging arrays
 		merge(pData,l,m,r);
     }
-	// I originally didn't realize there was already an ouput for extra memory allocated but now the code won't run without this line of code and honestly I'm not sure why.
-    printf("There was %d extra memory Allocated in the mergesort.\n", extraMemoryAllocated);
+    // For some reason a printf statement is needed here and it wont output if it is missing
+    printf("--------------------------------------------------------\n");
 }
 
 // implement insertion sort
@@ -80,7 +80,6 @@ void insertionSort(int* pData, int n)
     while(x >= 0 && pData[x] > temp) {
       pData[x+1] = pData[x];
       x = x - 1;
-	  extraMemoryAllocated++;
     }
     pData[x+1] = temp;
   }
@@ -101,12 +100,11 @@ void bubbleSort(int* pData, int n)
     for(int j = 0; j < n - i - 1; j++) {
       if(pData[j] > pData[j+1]) {
         swap(&pData[j], &pData[j+1]);
-        extraMemoryAllocated++;
       }
     }
   }
-  // I originally didn't realize there was already an ouput for extra memory allocated but now the code won't run without this line of code and honestly I'm not sure why.
-	printf("There was %d extra memory Allocated in the bubblesort.\n", extraMemoryAllocated);
+  // For some reason a printf statement is needed here and it wont output if it is missing
+	printf("------------------------------------------------\n");
 }
 
 // implement selection sort
@@ -122,7 +120,6 @@ void selectionSort(int* pData, int n)
 			}
 			if(min != i) {
 				swap(&pData[min], &pData[i]);
-				extraMemoryAllocated++;
 			}
 		}
 	}
@@ -141,7 +138,7 @@ int parseData(char *inputFileName, int **ppData)
 		*ppData = (int *)malloc(sizeof(int) * dataSz);
 		// Implement parse data block
 		if(*ppData) {
-			for(int i = 1; i < dataSz; i++) {
+			for(int i = 0; i < dataSz; ++i) {
 				fscanf(inFile, "%d\n", &((*ppData)[i]));
 			}
 		}
